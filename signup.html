@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up – Join the Advocacy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional form-specific styles to match existing site */
+        .form-container {
+            max-width: 700px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px 35px 35px 35px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .radio-group, .checkbox-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+        .radio-group label, .checkbox-group label {
+            font-weight: normal;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .error-msg {
+            color: #d9534f;
+            font-size: 13px;
+            margin-top: 5px;
+            display: block;
+        }
+        .success-msg {
+            color: #5cb85c;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: #eaf7ea;
+            border-radius: 5px;
+        }
+        button.btn-submit {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        button.btn-submit:hover {
+            transform: scale(1.02);
+            background-color: #00008b;
+        }
+        .home-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .home-link a {
+            color: darkblue;
+            text-decoration: none;
+        }
+        .home-link a:hover {
+            text-decoration: underline;
+        }
+        hr {
+            margin: 20px 0;
+            border: 0;
+            border-top: 1px solid #eee;
+        }
+        h2, h3 {
+            color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-content">
+        <h1>Join the Movement</h1>
+        <p class="tagline">Help us push for balanced juvenile justice reform</p>
+    </div>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="cases.html">Cases</a>
+    <a href="wcwd.html">What Can We Do?</a>
+    <a href="signup.html">Sign Up</a>
+</nav>
+
+<main>
+    <div class="form-container">
+        <h2>Become an Advocate</h2>
+        <p>Fill out the form below to join our community and stay updated on juvenile justice reform.</p>
+
+        <form id="signupForm" onsubmit="return validateForm()">
+            <!-- ========== PERSONAL INFORMATION SECTION ========== -->
+            <h3>Personal Information</h3>
+
+            <div class="form-group">
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" name="fullname" onblur="validateSingleField('fullname')">
+                <span id="fullnameError" class="error-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="birthdate">Birthdate:</label>
+                <input type="date" id="birthdate" name="birthdate" onchange="validateSingleField('birthdate')">
+                <span id="birthdateError" class="error-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Sex:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="sex" value="male" onchange="validateSex()"> Male</label>
+                    <label><input type="radio" name="sex" value="female" onchange="validateSex()"> Female</label>
+                    <label><input type="radio" name="sex" value="other" onchange="validateSex()"> Other</label>
+                </div>
+                <span id="sexError" class="error-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" onblur="validateSingleField('email')">
+                <span id="emailError" class="error-msg"></span>
+            </div>
+
+            <!-- ========== ACCOUNT DETAILS SECTION ========== -->
+            <h3>Account Details</h3>
+
+            <div class="form-group">
+                <label for="username">Username (8-20 characters, letters & digits only):</label>
+                <input type="text" id="username" name="username" onblur="validateSingleField('username')">
+                <span id="usernameError" class="error-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password (min 10 chars, 1 uppercase, 1 lowercase, 1 digit):</label>
+                <input type="password" id="password" name="password" onblur="validateSingleField('password')">
+                <span id="passwordError" class="error-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" onblur="validateSingleField('confirmPassword')">
+                <span id="confirmError" class="error-msg"></span>
+            </div>
+
+            <!-- ========== TOPIC QUESTIONS (related to advocacy) ========== -->
+            <h3>Your Views on Juvenile Justice</h3>
+
+            <!-- Dropdown (select) with blank default -->
+            <div class="form-group">
+                <label for="stance">What is your stance on lowering the age of criminal liability?</label>
+                <select id="stance" name="stance">
+                    <option value="">-- Choose an option --</option>
+                    <option value="support">Support – minors who commit heinous crimes should be held accountable</option>
+                    <option value="oppose">Oppose – focus on rehabilitation, not punishment</option>
+                    <option value="undecided">Undecided – need more information</option>
+                </select>
+                <span id="stanceError" class="error-msg"></span>
+            </div>
+
+            <!-- Checkbox list (same name attribute) -->
+            <div class="form-group">
+                <label>Which actions do you support? (Select at least one)</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="actions" value="awareness"> Raise awareness through social media</label>
+                    <label><input type="checkbox" name="actions" value="petition"> Sign petitions for reform</label>
+                    <label><input type="checkbox" name="actions" value="volunteer"> Volunteer in community programs</label>
+                    <label><input type="checkbox" name="actions" value="donate"> Donate to rehabilitation centers</label>
+                </div>
+                <span id="actionsError" class="error-msg"></span>
+            </div>
+
+            <!-- Third question: radio buttons (any appropriate type) -->
+            <div class="form-group">
+                <label>Do you believe the current juvenile justice system is effective?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="effectiveness" value="yes"> Yes</label>
+                    <label><input type="radio" name="effectiveness" value="no"> No</label>
+                    <label><input type="radio" name="effectiveness" value="unsure"> Not sure</label>
+                </div>
+                <span id="effectivenessError" class="error-msg"></span>
+            </div>
+
+            <!-- Custom submit button message -->
+            <button type="submit" class="btn-submit">✊ Join the Fight for Justice ✊</button>
+
+            <div id="successMessage" class="success-msg" style="display: none;"></div>
+
+            <div class="home-link">
+                <a href="index.html">← Back to Homepage</a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2025 Criminal Liability Advocacy | All Rights Reserved</p>
+    <div class="socials">
+        <a href="https://www.facebook.com/ethan.elumba.2024">Facebook</a>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
